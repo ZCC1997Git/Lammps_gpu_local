@@ -11,11 +11,11 @@
    See the README file in the top-level LAMMPS directory.
 ------------------------------------------------------------------------- */
 
-#include "lammps.h"
-
 #include "exceptions.h"
 #include "input.h"
+#include "lammps.h"
 #include "library.h"
+#include <iostream>
 
 #include <cstdlib>
 #include <mpi.h>
@@ -47,8 +47,9 @@ int main(int argc, char **argv)
 {
   MPI_Init(&argc, &argv);
   MPI_Comm lammps_comm = MPI_COMM_WORLD;
-
+  std::cout << "MPI initialized" << std::endl;
 #if defined(LMP_MDI)
+  std::cout << "MDI is defined" << std::endl;
   // initialize MDI interface, if compiled in
 
   int mdi_flag;
@@ -63,6 +64,7 @@ int main(int argc, char **argv)
 #endif
 
 #if defined(LAMMPS_TRAP_FPE) && defined(_GNU_SOURCE)
+  std::cout << "LAMMPS_TRAP_FPE is defined" << std::endl;
   // enable trapping selected floating point exceptions.
   // this uses GNU extensions and is only tested on Linux
   // therefore we make it depend on -D_GNU_SOURCE, too.
@@ -75,8 +77,12 @@ int main(int argc, char **argv)
 
   try {
     auto lammps = new LAMMPS(argc, argv, lammps_comm);
+    std::cout << "##################LAMMPS initialized##################" << std::endl;
     lammps->input->file();
+
+    std::cout << "##################LAMMPS input file processed########" << std::endl;
     delete lammps;
+    std::cout << "###################LAMMPS deleted####################" << std::endl;
   } catch (LAMMPSAbortException &ae) {
     finalize();
     MPI_Abort(ae.get_universe(), 1);
@@ -101,6 +107,8 @@ int main(int argc, char **argv)
     MPI_Abort(MPI_COMM_WORLD, 1);
     exit(1);
   }
+
+  std::cout << "Finalizing" << std::endl;
   finalize();
   MPI_Barrier(lammps_comm);
   MPI_Finalize();

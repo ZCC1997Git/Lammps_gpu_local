@@ -66,7 +66,7 @@ class LAMMPS {
   int suffix_enable;         // 1 if suffixes are enabled, 0 if disabled
   int pair_only_flag;        // 1 if only force field pair styles are accelerated, 0 if all
   const char *non_pair_suffix() const;
-  char *exename;             // pointer to argv[0]
+  char *exename;    // pointer to argv[0]
 
   char ***packargs;    // arguments for cmdline package commands
   int num_package;     // number of cmdline package commands

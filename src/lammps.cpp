@@ -11,7 +11,7 @@
 
    See the README file in the top-level LAMMPS directory.
 ------------------------------------------------------------------------- */
-
+#include<iostream>
 #include "lammps.h"
 
 #include "style_angle.h"     // IWYU pragma: keep
@@ -160,8 +160,96 @@ LAMMPS::LAMMPS(int narg, char **arg, MPI_Comm communicator) :
 
   initclock = platform::walltime();
 
+
+  std::cout<<"\nInitial Pkg\n"<<std::endl;
   init_pkg_lists();
 
+  /*print all pkg lists*/
+  /*angle*/
+  std::cout<<"\n\tangle_styles"<<std::endl;
+  for (auto it = pkg_lists ->angle_styles.begin(); it != pkg_lists ->angle_styles.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+  
+  /*atom*/
+  std::cout<<"\n\tatom_styles"<<std::endl;
+  for (auto it = pkg_lists ->atom_styles.begin(); it != pkg_lists ->atom_styles.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  /*body*/
+  std::cout<<"\n\tbody_styles"<<std::endl;
+  for (auto it = pkg_lists ->body_styles.begin(); it != pkg_lists ->body_styles.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  /*bond*/
+  std::cout<<"\n\tbond_styles"<<std::endl;
+  for (auto it = pkg_lists ->bond_styles.begin(); it != pkg_lists ->bond_styles.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  /*command*/
+  std::cout<<"\n\tcommand_styles"<<std::endl;
+  for (auto it = pkg_lists ->command_styles.begin(); it != pkg_lists ->command_styles.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  /*compute*/
+  std::cout<<"\n\tcompute_styles"<<std::endl;
+  for (auto it = pkg_lists ->compute_styles.begin(); it != pkg_lists ->compute_styles.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  /*dihedral*/
+  std::cout<<"\n\tdihedral_styles"<<std::endl;
+  for (auto it = pkg_lists ->dihedral_styles.begin(); it != pkg_lists ->dihedral_styles.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  /*dump*/
+  std::cout<<"dump_styles"<<std::endl;
+  for (auto it = pkg_lists ->dump_styles.begin(); it != pkg_lists ->dump_styles.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  /*fix*/
+  std::cout<<"\n\tfix_styles"<<std::endl;
+  for (auto it = pkg_lists ->fix_styles.begin(); it != pkg_lists ->fix_styles.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  /*improper*/
+  std::cout<<"\n\timproper_styles"<<std::endl;
+  for (auto it = pkg_lists ->improper_styles.begin(); it != pkg_lists ->improper_styles.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  /*integrate*/
+  std::cout<<"\n\tintegrate_styles"<<std::endl;
+  for (auto it = pkg_lists ->integrate_styles.begin(); it != pkg_lists ->integrate_styles.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  /*kspace*/
+  std::cout<<"\n\tkspace_styles"<<std::endl;
+  for (auto it = pkg_lists ->kspace_styles.begin(); it != pkg_lists ->kspace_styles.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  /*minimize*/
+  std::cout<<"\n\tminimize_styles"<<std::endl;
+
+  for (auto it = pkg_lists ->minimize_styles.begin(); it != pkg_lists ->minimize_styles.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  /*pair*/
+  std::cout<<"\n\tpair_styles"<<std::endl;
+
+  for (auto it = pkg_lists ->pair_styles.begin(); it != pkg_lists ->pair_styles.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  /*reader*/
+  std::cout<<"\n\treader_styles"<<std::endl;
+
+  for (auto it = pkg_lists ->reader_styles.begin(); it != pkg_lists ->reader_styles.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+  /*region*/
+  std::cout<<"\n\tregion_styles"<<std::endl;
+
+  for (auto it = pkg_lists ->region_styles.begin(); it != pkg_lists ->region_styles.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+
+ 
 #if defined(LMP_PYTHON) && defined(_WIN32)
   // If the LAMMPSHOME environment variable is set, it should point
   // to the location of the LAMMPS installation tree where we bundle

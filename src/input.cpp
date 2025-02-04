@@ -51,6 +51,7 @@
 #include <cstring>
 #include <cerrno>
 #include <cctype>
+#include<iostream>
 
 using namespace LAMMPS_NS;
 
@@ -439,6 +440,8 @@ void Input::parse()
   int n = strlen(line) + 1;
   if (n > maxcopy) reallocate(copy,maxcopy,n);
   strcpy(copy,line);
+  std::cout<<line<<std::endl;
+  std::cout<<std::endl;
 
   // strip a # comment by replacing it with 0
   // do not treat a # inside single/double/triple quotes as a comment
@@ -507,6 +510,12 @@ void Input::parse()
     if (!arg[narg]) break;
     narg++;
     ptr = next;
+  }
+
+  std::cout<<"Commend:"<<command<<'\n';
+  /*print arg*/
+  for(int i=0;i<narg;i++){
+    std::cout<<"\t"<<arg[i]<<std::endl;
   }
 }
 
@@ -1706,6 +1715,8 @@ void Input::package()
 
     std::string fixcmd = "package_gpu all GPU";
     for (int i = 1; i < narg; i++) fixcmd += std::string(" ") + arg[i];
+    std::cout << "fixcmd: " << fixcmd << std::endl;
+
     modify->add_fix(fixcmd);
 
   } else if (strcmp(arg[0],"kokkos") == 0) {

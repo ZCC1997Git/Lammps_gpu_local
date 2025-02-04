@@ -29,7 +29,7 @@
 #include "variable.h"
 
 #include <cstring>
-
+#include <iostream>
 using namespace LAMMPS_NS;
 using namespace FixConst;
 
@@ -1140,6 +1140,10 @@ const std::vector<Fix *> &Modify::get_fix_list()
 
 int Modify::check_package(const char *package_fix_name)
 {
+  /*print package fix name*/
+  std::cout << "package_fix_name: " << package_fix_name << std::endl;
+  // char tmp;
+  // std::cin >> tmp;
   if (fix_map->find(package_fix_name) == fix_map->end()) return 0;
   return 1;
 }
